@@ -16,11 +16,7 @@
     "@isky/notifications": "workspace:*",
     "@isky/payload-config": "workspace:*",
     "@isky/ui": "workspace:*",
-    "@payloadcms/db-postgres": "3.81.0",
-    "@payloadcms/next": "3.81.0",
-    "@payloadcms/richtext-lexical": "3.81.0",
     "next": "15.4.11",
-    "payload": "3.81.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.34.5"
@@ -28,6 +24,7 @@
   "devDependencies": {
     "@isky/eslint-config": "workspace:*",
     "@isky/typescript-config": "workspace:*",
+    "@types/react": "19.2.14",
     "typescript": "5.9.2"
   }
 }
