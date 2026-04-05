@@ -69,6 +69,12 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    suburbs: Suburb;
+    breeds: Breed;
+    services: Service;
+    'pseo-pages': PseoPage;
+    'voice-sessions': VoiceSession;
+    bookings: Booking;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,13 +84,19 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    suburbs: SuburbsSelect<false> | SuburbsSelect<true>;
+    breeds: BreedsSelect<false> | BreedsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    'pseo-pages': PseoPagesSelect<false> | PseoPagesSelect<true>;
+    'voice-sessions': VoiceSessionsSelect<false> | VoiceSessionsSelect<true>;
+    bookings: BookingsSelect<false> | BookingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {};
@@ -122,7 +134,7 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -147,7 +159,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -163,10 +175,144 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "suburbs".
+ */
+export interface Suburb {
+  id: number;
+  name: string;
+  state: string;
+  zip_codes?:
+    | {
+        zip?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  nearby_freeways?:
+    | {
+        freeway?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  competitor_density?: ('low' | 'medium' | 'high') | null;
+  priority_score?: number | null;
+  seasonal_context?: string | null;
+  local_signals_updated?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "breeds".
+ */
+export interface Breed {
+  id: number;
+  name: string;
+  coat_type?: string | null;
+  grooming_difficulty?: ('easy' | 'medium' | 'hard') | null;
+  grooming_frequency_weeks?: number | null;
+  seasonal_shedding?: boolean | null;
+  temperament_notes?: string | null;
+  aseo_talking_points?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  name: string;
+  description?: string | null;
+  price_range_low?: number | null;
+  price_range_high?: number | null;
+  duration_minutes?: number | null;
+  category?: ('bath' | 'groom' | 'nail' | 'teeth' | 'addon') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pseo-pages".
+ */
+export interface PseoPage {
+  id: number;
+  title: string;
+  slug: string;
+  suburb?: (number | null) | Suburb;
+  breed?: (number | null) | Breed;
+  service?: (number | null) | Service;
+  voice_id?: ('DL01' | 'FUN02' | 'WTL03' | 'EXP04' | 'CON05' | 'PWA06' | 'PCP07' | 'LI08') | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  aseo_variant?: string | null;
+  meta_title?: string | null;
+  meta_description?: string | null;
+  performance_score?: number | null;
+  indexation_status?: ('indexed' | 'crawled' | 'not_indexed' | 'unknown') | null;
+  impressions_30d?: number | null;
+  clicks_30d?: number | null;
+  avg_position?: number | null;
+  clustering_risk_score?: number | null;
+  last_refreshed?: string | null;
+  refresh_trigger?: ('manual' | 'auto' | 'performance') | null;
+  published?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "voice-sessions".
+ */
+export interface VoiceSession {
+  id: number;
+  call_id: string;
+  client_id: string;
+  retell_agent_id?: string | null;
+  duration_seconds?: number | null;
+  outcome?: ('booked' | 'inquiry' | 'missed' | 'escalated') | null;
+  transcript?: string | null;
+  cost_usd?: number | null;
+  after_hours?: boolean | null;
+  booking_attributed?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bookings".
+ */
+export interface Booking {
+  id: number;
+  booking_id: string;
+  client_id: string;
+  pet_name?: string | null;
+  service?: (number | null) | Service;
+  attribution_source?: ('voice' | 'chat' | 'pseo' | 'direct' | 'social') | null;
+  revenue?: number | null;
+  booked_at?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -183,20 +329,44 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'suburbs';
+        value: number | Suburb;
+      } | null)
+    | ({
+        relationTo: 'breeds';
+        value: number | Breed;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'pseo-pages';
+        value: number | PseoPage;
+      } | null)
+    | ({
+        relationTo: 'voice-sessions';
+        value: number | VoiceSession;
+      } | null)
+    | ({
+        relationTo: 'bookings';
+        value: number | Booking;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -206,10 +376,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -229,7 +399,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -274,6 +444,120 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "suburbs_select".
+ */
+export interface SuburbsSelect<T extends boolean = true> {
+  name?: T;
+  state?: T;
+  zip_codes?:
+    | T
+    | {
+        zip?: T;
+        id?: T;
+      };
+  nearby_freeways?:
+    | T
+    | {
+        freeway?: T;
+        id?: T;
+      };
+  competitor_density?: T;
+  priority_score?: T;
+  seasonal_context?: T;
+  local_signals_updated?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "breeds_select".
+ */
+export interface BreedsSelect<T extends boolean = true> {
+  name?: T;
+  coat_type?: T;
+  grooming_difficulty?: T;
+  grooming_frequency_weeks?: T;
+  seasonal_shedding?: T;
+  temperament_notes?: T;
+  aseo_talking_points?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  price_range_low?: T;
+  price_range_high?: T;
+  duration_minutes?: T;
+  category?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pseo-pages_select".
+ */
+export interface PseoPagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  suburb?: T;
+  breed?: T;
+  service?: T;
+  voice_id?: T;
+  content?: T;
+  aseo_variant?: T;
+  meta_title?: T;
+  meta_description?: T;
+  performance_score?: T;
+  indexation_status?: T;
+  impressions_30d?: T;
+  clicks_30d?: T;
+  avg_position?: T;
+  clustering_risk_score?: T;
+  last_refreshed?: T;
+  refresh_trigger?: T;
+  published?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "voice-sessions_select".
+ */
+export interface VoiceSessionsSelect<T extends boolean = true> {
+  call_id?: T;
+  client_id?: T;
+  retell_agent_id?: T;
+  duration_seconds?: T;
+  outcome?: T;
+  transcript?: T;
+  cost_usd?: T;
+  after_hours?: T;
+  booking_attributed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bookings_select".
+ */
+export interface BookingsSelect<T extends boolean = true> {
+  booking_id?: T;
+  client_id?: T;
+  pet_name?: T;
+  service?: T;
+  attribution_source?: T;
+  revenue?: T;
+  booked_at?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
