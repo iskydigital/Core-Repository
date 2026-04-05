@@ -1,5 +1,5 @@
 {
-  "name": "@isky/admin",
+  "name": "@isky/marketing",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@isky/ui": "workspace:*",
-    "@isky/analytics": "workspace:*",
-    "@isky/notifications": "workspace:*",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

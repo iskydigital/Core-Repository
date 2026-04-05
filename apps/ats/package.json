@@ -1,24 +1,19 @@
 {
-  "name": "@isky/admin",
+  "name": "@isky/ats",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "start": "next start"
   },
   "dependencies": {
     "@isky/ui": "workspace:*",
-    "@isky/analytics": "workspace:*",
-    "@isky/notifications": "workspace:*",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@isky/eslint-config": "workspace:*",
     "@isky/typescript-config": "workspace:*",
     "typescript": "5.9.2"
   }

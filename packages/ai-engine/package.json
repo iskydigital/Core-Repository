@@ -1,18 +1,19 @@
 {
-  "name": "@isky/ui",
+  "name": "@isky/ai-engine",
   "version": "0.0.1",
   "private": true,
   "exports": {
-    "./components/*": "./src/components/*.tsx",
-    "./lib/*": "./src/lib/*.ts"
+    "./gateway": "./src/gateway.ts",
+    "./voice/*": "./src/voice/*.ts",
+    "./prompts/*": "./src/prompts/*.ts",
+    "./notifications/*": "./src/notifications/*.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@isky/eslint-config": "workspace:*",

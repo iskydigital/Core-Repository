@@ -1,5 +1,5 @@
 {
-  "name": "@isky/admin",
+  "name": "@isky/travel-saas",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "@isky/ui": "workspace:*",
+    "@isky/payload-config": "workspace:*",
+    "@isky/ai-engine": "workspace:*",
     "@isky/analytics": "workspace:*",
     "@isky/notifications": "workspace:*",
     "next": "^15.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "payload": "^3.0.0"
   },
   "devDependencies": {
     "@isky/eslint-config": "workspace:*",

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  payload-travel:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../../apps/travel-saas:/app
+    ports:
+      - "3002:3000"
+    environment:
+      - DATABASE_URI=${TRAVEL_DATABASE_URI}
+      - PAYLOAD_SECRET=${TRAVEL_PAYLOAD_SECRET}
+      - NODE_ENV=production
+    depends_on:
+      - postgres-travel
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+
+  postgres-travel:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_travel_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${TRAVEL_POSTGRES_DB}
+      - POSTGRES_USER=${TRAVEL_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${TRAVEL_POSTGRES_PASSWORD}
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+
+volumes:
+  postgres_travel_data:

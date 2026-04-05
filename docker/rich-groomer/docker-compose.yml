@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  payload-rg:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../../apps/rich-groomer:/app
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URI=${RG_DATABASE_URI}
+      - PAYLOAD_SECRET=${RG_PAYLOAD_SECRET}
+      - NODE_ENV=production
+    depends_on:
+      - postgres-rg
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+
+  postgres-rg:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_rg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${RG_POSTGRES_DB}
+      - POSTGRES_USER=${RG_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${RG_POSTGRES_PASSWORD}
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+
+volumes:
+  postgres_rg_data:
