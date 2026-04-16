@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheryl's Sensational 70th – Hawaii</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #050a05;
+    --deep-green: #0d2b0d;
+    --green: #1a5c1a;
+    --leaf-green: #2d8c2d;
+    --red: #c41e3a;
+    --crimson: #8b0000;
+    --purple: #6a0dad;
+    --violet: #9b30ff;
+    --lavender: #d4a0ff;
+    --gold: #d4af37;
+    --cream: #fdf5e6;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .flyer {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* === DECORATIVE LEAVES SVG BACKGROUND === */
+  .leaf-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* === HEADER === */
+  .header {
+    position: relative;
+    text-align: center;
+    padding: 60px 40px 40px;
+    z-index: 1;
+  }
+
+  .hawaii-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--leaf-green);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    animation: fadeDown 1s ease both;
+  }
+
+  .title-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .main-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--red) 0%, var(--gold) 40%, var(--violet) 70%, var(--red) 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s ease-in-out infinite, fadeDown 1s 0.2s ease both;
+  }
+
+  .subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--lavender);
+    margin-top: 10px;
+    animation: fadeDown 1s 0.4s ease both;
+  }
+
+  .dates-badge {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 8px 28px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    animation: fadeDown 1s 0.6s ease both;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 30px 40px;
+    z-index: 1;
+    position: relative;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--red), var(--purple), transparent);
+  }
+  .divider-icon { font-size: 1.4rem; }
+
+  /* === ITINERARY DAYS === */
+  .itinerary {
+    position: relative;
+    z-index: 1;
+    padding: 0 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .day-card {
+    background: linear-gradient(135deg, rgba(13,43,13,0.7) 0%, rgba(5,10,5,0.9) 100%);
+    border-left: 3px solid var(--red);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.8s ease both;
+  }
+
+  .day-card:hover {
+    transform: translateX(6px);
+    box-shadow: -6px 0 30px rgba(196, 30, 58, 0.3);
+  }
+
+  .day-card:nth-child(2) { border-left-color: var(--purple); animation-delay: 0.1s; }
+  .day-card:nth-child(3) { border-left-color: var(--violet); animation-delay: 0.2s; }
+  .day-card:nth-child(4) { border-left-color: var(--red); animation-delay: 0.3s; }
+  .day-card:nth-child(5) { border-left-color: var(--gold); animation-delay: 0.4s; }
+
+  .day-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(196,30,58,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .day-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--leaf-green);
+  }
+
+  .day-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--white);
+  }
+
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--lavender);
+  }
+
+  .day-content {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.82);
+  }
+
+  .event-time {
+    color: var(--gold);
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .highlight {
+    color: var(--lavender);
+    font-style: italic;
+  }
+
+  .emoji-accent { font-size: 1.1em; }
+
+  .dress-note {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 14px;
+    border-left: 2px solid var(--gold);
+    color: var(--gold);
+    font-style: italic;
+    font-size: 0.98rem;
+    background: rgba(212,175,55,0.06);
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* SPECIAL birthday card */
+  .day-card.birthday {
+    border-left-color: var(--gold);
+    background: linear-gradient(135deg, rgba(30,10,60,0.85) 0%, rgba(13,43,13,0.6) 50%, rgba(5,10,5,0.9) 100%);
+    box-shadow: inset 0 0 60px rgba(106,13,173,0.12);
+  }
+
+  .day-card.birthday:hover {
+    box-shadow: -6px 0 30px rgba(154,48,255,0.3), inset 0 0 60px rgba(106,13,173,0.12);
+  }
+
+  /* === FOOTER === */
+  .footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 40px 50px;
+  }
+
+  .footer-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .footer-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--purple), var(--red), transparent);
+  }
+
+  .footer-message {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--cream);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .footer-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    color: var(--leaf-green);
+    letter-spacing: 0.15em;
+  }
+
+  .mahalo {
+    margin-top: 22px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    background: linear-gradient(90deg, var(--red), var(--purple), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-2deg) scale(1); }
+    50% { transform: rotate(2deg) scale(1.02); }
+  }
+
+  .leaf-animated {
+    animation: sway 6s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="flyer">
+
+  <!-- SVG Botanical Background -->
+  <svg class="leaf-bg" viewBox="0 0 800 2200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <!-- TOP LEFT large palm leaf -->
+    <g class="leaf-animated" style="animation-delay:0s">
+      <path d="M-30 20 Q80 60 160 200 Q100 180 60 140 Q90 200 150 260 Q80 220 30 180 Q70 260 120 320 Q40 270 -10 220 Q40 320 80 400 Q-10 340 -50 280 Z" fill="#1a5c1a" opacity="0.7"/>
+      <path d="M-50 10 Q60 80 140 250 Q70 210 20 160" fill="none" stroke="#2d8c2d" stroke-width="2" opacity="0.5"/>
+    </g>
+    <!-- TOP RIGHT botanical -->
+    <g class="leaf-animated" style="animation-delay:1s; transform-origin: 750px 0px">
+      <path d="M850 -10 Q720 50 680 180 Q740 160 780 120 Q750 190 700 250 Q760 230 810 190 Q770 270 730 330 Q800 290 840 240 Q800 340 760 420 Q840 360 880 300 Z" fill="#1a5c1a" opacity="0.65"/>
+      <path d="M860 0 Q730 70 680 240" fill="none" stroke="#2d8c2d" stroke-width="2" opacity="0.5"/>
+    </g>
+    <!-- FLOWERS top left -->
+    <!-- Red hibiscus -->
+    <g transform="translate(80, 110)">
+      <ellipse rx="22" ry="38" fill="#c41e3a" opacity="0.85" transform="rotate(0)"/>
+      <ellipse rx="22" ry="38" fill="#c41e3a" opacity="0.85" transform="rotate(72)"/>
+      <ellipse rx="22" ry="38" fill="#c41e3a" opacity="0.85" transform="rotate(144)"/>
+      <ellipse rx="22" ry="38" fill="#c41e3a" opacity="0.85" transform="rotate(216)"/>
+      <ellipse rx="22" ry="38" fill="#c41e3a" opacity="0.85" transform="rotate(288)"/>
+      <circle r="12" fill="#d4af37" opacity="0.9"/>
+      <circle r="5" fill="#fff" opacity="0.7"/>
+    </g>
+    <!-- Purple flower top right -->
+    <g transform="translate(700, 90)">
+      <ellipse rx="18" ry="32" fill="#6a0dad" opacity="0.8" transform="rotate(0)"/>
+      <ellipse rx="18" ry="32" fill="#9b30ff" opacity="0.8" transform="rotate(60)"/>
+      <ellipse rx="18" ry="32" fill="#6a0dad" opacity="0.8" transform="rotate(120)"/>
+      <ellipse rx="18" ry="32" fill="#9b30ff" opacity="0.8" transform="rotate(180)"/>
+      <ellipse rx="18" ry="32" fill="#6a0dad" opacity="0.8" transform="rotate(240)"/>
+      <ellipse rx="18" ry="32" fill="#9b30ff" opacity="0.8" transform="rotate(300)"/>
+      <circle r="10" fill="#d4af37" opacity="0.9"/>
+    </g>
+    <!-- Mid-left leaves -->
+    <g class="leaf-animated" style="animation-delay:2s; transform-origin:0px 900px">
+      <path d="M-60 800 Q40 820 100 950 Q50 930 10 900 Q50 960 90 1030 Q20 990 -20 960 Q30 1060 60 1140 Q-30 1080 -70 1020 Z" fill="#1a5c1a" opacity="0.55"/>
+    </g>
+    <!-- Mid-right small red flower -->
+    <g transform="translate(740, 780)">
+      <ellipse rx="16" ry="28" fill="#8b0000" opacity="0.75" transform="rotate(0)"/>
+      <ellipse rx="16" ry="28" fill="#c41e3a" opacity="0.75" transform="rotate(72)"/>
+      <ellipse rx="16" ry="28" fill="#8b0000" opacity="0.75" transform="rotate(144)"/>
+      <ellipse rx="16" ry="28" fill="#c41e3a" opacity="0.75" transform="rotate(216)"/>
+      <ellipse rx="16" ry="28" fill="#8b0000" opacity="0.75" transform="rotate(288)"/>
+      <circle r="8" fill="#d4af37" opacity="0.9"/>
+    </g>
+    <!-- Bottom right leaves -->
+    <g class="leaf-animated" style="animation-delay:0.5s; transform-origin:800px 1900px">
+      <path d="M870 1880 Q750 1910 700 2040 Q760 2010 800 1980 Q760 2050 720 2120 Q790 2080 830 2040 Q790 2140 760 2220 Q840 2160 870 2100 Z" fill="#2d8c2d" opacity="0.6"/>
+    </g>
+    <!-- Bottom left flower cluster -->
+    <g transform="translate(60, 2000)">
+      <ellipse rx="14" ry="24" fill="#9b30ff" opacity="0.7" transform="rotate(0)"/>
+      <ellipse rx="14" ry="24" fill="#d4a0ff" opacity="0.7" transform="rotate(72)"/>
+      <ellipse rx="14" ry="24" fill="#9b30ff" opacity="0.7" transform="rotate(144)"/>
+      <ellipse rx="14" ry="24" fill="#d4a0ff" opacity="0.7" transform="rotate(216)"/>
+      <ellipse rx="14" ry="24" fill="#9b30ff" opacity="0.7" transform="rotate(288)"/>
+      <circle r="7" fill="#d4af37"/>
+    </g>
+    <!-- Scattered petals -->
+    <ellipse cx="200" cy="350" rx="6" ry="10" fill="#c41e3a" opacity="0.4" transform="rotate(30, 200, 350)"/>
+    <ellipse cx="600" cy="500" rx="5" ry="9" fill="#9b30ff" opacity="0.35" transform="rotate(-20, 600, 500)"/>
+    <ellipse cx="150" cy="1200" rx="7" ry="12" fill="#c41e3a" opacity="0.3" transform="rotate(45, 150, 1200)"/>
+    <ellipse cx="680" cy="1400" rx="5" ry="9" fill="#6a0dad" opacity="0.4" transform="rotate(-30, 680, 1400)"/>
+    <ellipse cx="400" cy="600" rx="4" ry="7" fill="#d4af37" opacity="0.25" transform="rotate(60, 400, 600)"/>
+  </svg>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="hawaii-label">Honolulu, Hawaii · April 2025</div>
+    <div class="title-wrap">
+      <div class="main-title">Cheryl's Sensational<br>70th</div>
+    </div>
+    <div class="subtitle">Sun, Sand & Seventy Years of Stunning</div>
+    <div class="dates-badge">April 23 – 27, 2025</div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-icon">*</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="itinerary">
+
+    <!-- Day 1 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-label">Day One</span>
+        <span class="day-name">Thursday, April 23</span>
+        <span class="day-title">Group Arrival &amp; Aloha Vibes</span>
+      </div>
+      <div class="day-content">
+        Touch down in paradise and breathe in that warm Hawaiian air — you've earned this!<br><br>
+        <span class="event-time">7:00 PM</span> — <span class="highlight">Meet &amp; Greet at Tiki's Bar · Twin Fin Hotel</span><br>
+        Let the island magic begin! Join the crew for our welcome kick-off — <strong>your first drink and a spread of delicious appetizers are completely on us.</strong> Come ready to hug, laugh, and toast to the birthday queen!
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-card birthday">
+      <div class="day-header">
+        <span class="day-label">Day Two</span>
+        <span class="day-name">Friday, April 24</span>
+        <span class="day-title">The Birthday Diva's Big Day</span>
+      </div>
+      <div class="day-content">
+        Today is ALL about <strong>Cheryl!</strong> Rise and shine, birthday queen — your kingdom awaits.<br><br>
+        <span class="highlight">Daytime:</span> Join us for a glorious day of sun, surf, and sand at <strong>Ala Moana Beach Park</strong> — one of Oahu's most beautiful stretches of shoreline. Splash, sunbathe, build memories, and snap a million photos!<br><br>
+        <span class="event-time">6:00 PM</span> — <span class="highlight">Sunset Toast at Moana Surfrider Hotel · Beach Bar</span><br>
+        Raise your glass at one of Hawaii's most iconic and breathtaking beachfront venues. <strong>Let's toast, cheer, and celebrate 70 fabulous years of Cheryl!</strong><br><br>
+        <span class="dress-note">Attire: Wear your most vibrant tropical colors — think bold florals, bright pinks, turquoise, coral, and sunshine yellow. Let's paint the beach bar beautiful!</span>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-label">Day Three</span>
+        <span class="day-name">Saturday, April 25</span>
+        <span class="day-title">Your Day, Your Way</span>
+      </div>
+      <div class="day-content">
+        This is YOUR vacation — <strong>vacation your way!</strong> Today is completely open for you to fill however your heart desires. Browse the optional excursions below, mix and match, or do absolutely nothing at all — no judgment here.<br><br>
+        <span class="highlight">Optional Excursions — Book What Speaks to You:</span><br><br>
+        <span class="event-time">Dole Plantation</span> — Wander the world-famous pineapple plantation, get lost in the giant maze, and treat yourself to the legendary Dole Whip.<br><br>
+        <span class="event-time">Diamond Head Hike</span> — Lace up and trek to the summit of Oahu's iconic volcanic crater for sweeping panoramic views of the coastline.<br><br>
+        <span class="event-time">Circle Island Tour with Snorkeling</span> — Cruise the full coastline of Oahu, stop at breathtaking lookouts along the North Shore, and dip into crystal-clear waters for a snorkeling adventure with tropical sea life.<br><br>
+        <span class="event-time">Surf Lessons</span> — Hang ten! First-timers and seasoned wave riders alike will love getting out on the water with a local instructor.<br><br>
+        <span class="event-time">Stand Up Paddleboarding</span> — Glide across calm Hawaiian waters and take in the island scenery from a whole new perspective.<br><br>
+        <span class="event-time">Simply Chill</span> — The beach, a book, a cold drink, and zero obligations. Sometimes the best excursion is no excursion at all.<br><br>
+
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-label">Day Four</span>
+        <span class="day-name">Sunday, April 26</span>
+        <span class="day-title">Royal Luau</span>
+      </div>
+      <div class="day-content">
+        A Hawaiian celebration is never complete without a luau — and this one is fit for a queen!<br><br>
+        <span class="event-time">5:00 PM</span> — <span class="highlight">Queen's Luau · International Market Place</span><br>
+        An unforgettable afternoon of traditional Hawaiian hula, live music, fire dancers, and a magnificent feast celebrating the spirit of the islands. Let's close out this trip in royal style!<br><br>
+        <span class="dress-note">Attire: Island look — flowing sundresses, linen shirts, sarongs, and your best island elegance. Think breezy, chic, and island-inspired.</span>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-label">Day Five</span>
+        <span class="day-name">Monday, April 27</span>
+        <span class="day-title">Aloha &amp; Safe Travels</span>
+      </div>
+      <div class="day-content">
+        All good things must come to an end — but the memories we made will last forever.<br><br>
+        Squeeze in one last sunrise stroll, a fresh poke bowl, or a final coconut on the beach before saying <em>mahalo</em> to this beautiful island. Safe travels everyone — until the next adventure!
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider" style="margin-top:10px;">
+    <div class="footer-divider-line"></div>
+    <span class="divider-icon">*</span>
+    <div class="footer-divider-line"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-message">
+      "Seventy never looked so good — and Hawaii agrees."
+    </div>
+    <div class="footer-sub">We're so grateful to celebrate this milestone with you, Cheryl. Aloha &amp; love!</div>
+    <div class="mahalo">M A H A L O</div>
+  </div>
+
+</div>
+</body>
+</html>

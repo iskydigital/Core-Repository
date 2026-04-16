@@ -1,0 +1,78 @@
+{
+  "trip": {
+    "slug": "cheryl-hawaii-2025",
+    "title": "Cheryl's Sensational 70th",
+    "subtitle": "Sun, Sand & Seventy Years of Stunning",
+    "destination": "Honolulu, Hawaii",
+    "destinationLabel": "Honolulu, Hawaii · April 2025",
+    "dateStart": "2025-04-23",
+    "dateEnd": "2025-04-27",
+    "datesBadge": "April 23 – 27, 2025",
+    "heroImageUrl": null,
+    "svgBackgroundKey": "hawaii",
+    "contactName": "Brenda Walker",
+    "contactPhone": "TBD",
+    "contactEmail": "walkergreentravel@gmail.com",
+    "footerMessage": "Seventy never looked so good — and Hawaii agrees.",
+    "footerSub": "We're so grateful to celebrate this milestone with you, Cheryl. Aloha & love!",
+    "mahaloText": "M A H A L O",
+    "status": "active"
+  },
+  "itineraryDays": [
+    {
+      "dayNumber": 1,
+      "dayLabel": "Day One",
+      "dayName": "Thursday, April 23",
+      "dayTitle": "Group Arrival & Aloha Vibes",
+      "bodyContent": "<p>Touch down in paradise and breathe in that warm Hawaiian air — you've earned this!</p><p><span data-event-time>7:00 PM</span> — <span data-highlight>Meet &amp; Greet at Tiki's Bar · Twin Fin Hotel</span></p><p>Let the island magic begin! Join the crew for our welcome kick-off — <strong>your first drink and a spread of delicious appetizers are completely on us.</strong> Come ready to hug, laugh, and toast to the birthday queen!</p>",
+      "dressNote": null,
+      "isSpecial": false,
+      "backgroundVariant": 0,
+      "sortOrder": 1
+    },
+    {
+      "dayNumber": 2,
+      "dayLabel": "Day Two",
+      "dayName": "Friday, April 24",
+      "dayTitle": "The Birthday Diva's Big Day",
+      "bodyContent": "<p>Today is ALL about <strong>Cheryl!</strong> Rise and shine, birthday queen — your kingdom awaits.</p><p><span data-highlight>Daytime:</span> Join us for a glorious day of sun, surf, and sand at <strong>Ala Moana Beach Park</strong> — one of Oahu's most beautiful stretches of shoreline. Splash, sunbathe, build memories, and snap a million photos!</p><p><span data-event-time>6:00 PM</span> — <span data-highlight>Sunset Toast at Moana Surfrider Hotel · Beach Bar</span></p><p>Raise your glass at one of Hawaii's most iconic and breathtaking beachfront venues. <strong>Let's toast, cheer, and celebrate 70 fabulous years of Cheryl!</strong></p>",
+      "dressNote": "Wear your most vibrant tropical colors — think bold florals, bright pinks, turquoise, coral, and sunshine yellow. Let's paint the beach bar beautiful!",
+      "isSpecial": true,
+      "backgroundVariant": 1,
+      "sortOrder": 2
+    },
+    {
+      "dayNumber": 3,
+      "dayLabel": "Day Three",
+      "dayName": "Saturday, April 25",
+      "dayTitle": "Your Day, Your Way",
+      "bodyContent": "<p>This is YOUR vacation — <strong>vacation your way!</strong> Today is completely open for you to fill however your heart desires. Browse the optional excursions below, mix and match, or do absolutely nothing at all — no judgment here.</p><p><span data-highlight>Optional Excursions — Book What Speaks to You:</span></p><p><span data-event-time>Dole Plantation</span> — Wander the world-famous pineapple plantation, get lost in the giant maze, and treat yourself to the legendary Dole Whip.</p><p><span data-event-time>Diamond Head Hike</span> — Lace up and trek to the summit of Oahu's iconic volcanic crater for sweeping panoramic views of the coastline.</p><p><span data-event-time>Circle Island Tour with Snorkeling</span> — Cruise the full coastline of Oahu, stop at breathtaking lookouts along the North Shore, and dip into crystal-clear waters for a snorkeling adventure with tropical sea life.</p><p><span data-event-time>Surf Lessons</span> — Hang ten! First-timers and seasoned wave riders alike will love getting out on the water with a local instructor.</p><p><span data-event-time>Stand Up Paddleboarding</span> — Glide across calm Hawaiian waters and take in the island scenery from a whole new perspective.</p><p><span data-event-time>Simply Chill</span> — The beach, a book, a cold drink, and zero obligations. Sometimes the best excursion is no excursion at all.</p>",
+      "dressNote": null,
+      "isSpecial": false,
+      "backgroundVariant": 2,
+      "sortOrder": 3
+    },
+    {
+      "dayNumber": 4,
+      "dayLabel": "Day Four",
+      "dayName": "Sunday, April 26",
+      "dayTitle": "Royal Luau",
+      "bodyContent": "<p>A Hawaiian celebration is never complete without a luau — and this one is fit for a queen!</p><p><span data-event-time>5:00 PM</span> — <span data-highlight>Queen's Luau · International Market Place</span></p><p>An unforgettable afternoon of traditional Hawaiian hula, live music, fire dancers, and a magnificent feast celebrating the spirit of the islands. Let's close out this trip in royal style!</p>",
+      "dressNote": "Island look — flowing sundresses, linen shirts, sarongs, and your best island elegance. Think breezy, chic, and island-inspired.",
+      "isSpecial": false,
+      "backgroundVariant": 3,
+      "sortOrder": 4
+    },
+    {
+      "dayNumber": 5,
+      "dayLabel": "Day Five",
+      "dayName": "Monday, April 27",
+      "dayTitle": "Aloha & Safe Travels",
+      "bodyContent": "<p>All good things must come to an end — but the memories we made will last forever.</p><p>Squeeze in one last sunrise stroll, a fresh poke bowl, or a final coconut on the beach before saying <em>mahalo</em> to this beautiful island. Safe travels everyone — until the next adventure!</p>",
+      "dressNote": null,
+      "isSpecial": false,
+      "backgroundVariant": 4,
+      "sortOrder": 5
+    }
+  ]
+}

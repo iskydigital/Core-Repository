@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reference: Single ItineraryDay Card</title>
+<!--
+  REFERENCE FILE FOR CLAUDE CODE
+  ==============================
+  This is the target visual output for a single ItineraryDay record
+  rendered on the client portal.
+
+  Each card shows one of 5 background variants. The "birthday" variant
+  (isSpecial: true) gets the gold border + purple/green gradient bg.
+
+  Field mapping (data model → HTML):
+    dayLabel       → .day-label
+    dayName        → .day-name
+    dayTitle       → .day-title
+    bodyContent    → .day-content (HTML rendered with DOMPurify)
+    dressNote      → .dress-note (shown only if not null)
+    isSpecial      → adds .birthday class to .day-card
+    backgroundVariant → adds .variant-0 through .variant-4
+
+  Inside bodyContent HTML, Tiptap custom marks render as:
+    <span data-event-time>7:00 PM</span>  → .event-time
+    <span data-highlight>Location</span>  → .highlight
+
+  Serve this via a CSS selector like:
+    .day-content [data-event-time] { /* event-time styles */ }
+    .day-content [data-highlight]  { /* highlight styles */ }
+-->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050a05;
+  --deep-green: #0d2b0d;
+  --green: #1a5c1a;
+  --leaf-green: #2d8c2d;
+  --red: #c41e3a;
+  --crimson: #8b0000;
+  --purple: #6a0dad;
+  --violet: #9b30ff;
+  --lavender: #d4a0ff;
+  --gold: #d4af37;
+  --cream: #fdf5e6;
+  --white: #ffffff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--black);
+  font-family: 'Cormorant Garamond', serif;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* === DAY CARD BASE === */
+.day-card {
+  background: linear-gradient(135deg, rgba(13,43,13,0.7) 0%, rgba(5,10,5,0.9) 100%);
+  border-left: 3px solid var(--red);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.day-card:hover {
+  transform: translateX(6px);
+  box-shadow: -6px 0 30px rgba(196, 30, 58, 0.3);
+}
+.day-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, rgba(196,30,58,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* === 5 BACKGROUND VARIANTS === */
+.day-card.variant-0 { border-left-color: var(--red); }
+.day-card.variant-0::before { background: radial-gradient(circle, rgba(196,30,58,0.10) 0%, transparent 70%); }
+
+.day-card.variant-1 { border-left-color: var(--purple); }
+.day-card.variant-1::before { background: radial-gradient(circle, rgba(106,13,173,0.12) 0%, transparent 70%); }
+
+.day-card.variant-2 { border-left-color: var(--violet); }
+.day-card.variant-2::before { background: radial-gradient(circle, rgba(155,48,255,0.10) 0%, transparent 70%); }
+
+.day-card.variant-3 { border-left-color: var(--red); }
+.day-card.variant-3::before { background: radial-gradient(circle, rgba(196,30,58,0.10) 0%, transparent 70%); }
+
+.day-card.variant-4 { border-left-color: var(--gold); }
+.day-card.variant-4::before { background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%); }
+
+/* === SPECIAL (BIRTHDAY) TREATMENT === */
+.day-card.special {
+  border-left-color: var(--gold);
+  background: linear-gradient(135deg, rgba(30,10,60,0.85) 0%, rgba(13,43,13,0.6) 50%, rgba(5,10,5,0.9) 100%);
+  box-shadow: inset 0 0 60px rgba(106,13,173,0.12);
+}
+.day-card.special:hover {
+  box-shadow: -6px 0 30px rgba(154,48,255,0.3), inset 0 0 60px rgba(106,13,173,0.12);
+}
+
+/* === HEADER === */
+.day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.day-label {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--leaf-green);
+}
+.day-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--white);
+}
+.day-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--lavender);
+}
+
+/* === BODY CONTENT === */
+.day-content {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.82);
+}
+.day-content p {
+  margin-bottom: 0.9em;
+}
+.day-content p:last-child {
+  margin-bottom: 0;
+}
+.day-content strong {
+  color: var(--white);
+  font-weight: 700;
+}
+.day-content em {
+  font-style: italic;
+}
+
+/* === TIPTAP CUSTOM MARKS === */
+.day-content [data-event-time] {
+  color: var(--gold);
+  font-weight: 600;
+  font-style: italic;
+}
+.day-content [data-highlight] {
+  color: var(--lavender);
+  font-style: italic;
+}
+
+/* === DRESS NOTE CALLOUT === */
+.dress-note {
+  display: block;
+  margin-top: 14px;
+  padding: 10px 16px;
+  border-left: 2px solid var(--gold);
+  color: var(--gold);
+  font-style: italic;
+  font-size: 0.98rem;
+  background: rgba(212,175,55,0.06);
+  border-radius: 0 6px 6px 0;
+}
+.dress-note::before {
+  content: 'Attire: ';
+  font-weight: 600;
+}
+
+/* === LABEL UI === */
+.variant-tag {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.08);
+  color: var(--cream);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: var(--cream);
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  text-align: center;
+  opacity: 0.6;
+}
+</style>
+</head>
+<body>
+
+<div class="variant-tag">Reference: ItineraryDay cards</div>
+
+<div class="container">
+
+<h2>— variant-0 (red accent, standard day) —</h2>
+<div class="day-card variant-0">
+  <div class="day-header">
+    <span class="day-label">Day One</span>
+    <span class="day-name">Thursday, April 23</span>
+    <span class="day-title">Group Arrival &amp; Aloha Vibes</span>
+  </div>
+  <div class="day-content">
+    <p>Touch down in paradise and breathe in that warm Hawaiian air — you've earned this!</p>
+    <p><span data-event-time>7:00 PM</span> — <span data-highlight>Meet &amp; Greet at Tiki's Bar · Twin Fin Hotel</span></p>
+    <p>Let the island magic begin! Join the crew for our welcome kick-off — <strong>your first drink and a spread of delicious appetizers are completely on us.</strong> Come ready to hug, laugh, and toast to the birthday queen!</p>
+  </div>
+</div>
+
+<h2>— variant-1 with isSpecial: true (birthday treatment) —</h2>
+<div class="day-card variant-1 special">
+  <div class="day-header">
+    <span class="day-label">Day Two</span>
+    <span class="day-name">Friday, April 24</span>
+    <span class="day-title">The Birthday Diva's Big Day</span>
+  </div>
+  <div class="day-content">
+    <p>Today is ALL about <strong>Cheryl!</strong> Rise and shine, birthday queen — your kingdom awaits.</p>
+    <p><span data-highlight>Daytime:</span> Join us for a glorious day of sun, surf, and sand at <strong>Ala Moana Beach Park</strong> — one of Oahu's most beautiful stretches of shoreline. Splash, sunbathe, build memories, and snap a million photos!</p>
+    <p><span data-event-time>6:00 PM</span> — <span data-highlight>Sunset Toast at Moana Surfrider Hotel · Beach Bar</span></p>
+    <p>Raise your glass at one of Hawaii's most iconic and breathtaking beachfront venues. <strong>Let's toast, cheer, and celebrate 70 fabulous years of Cheryl!</strong></p>
+  </div>
+  <div class="dress-note">Wear your most vibrant tropical colors — think bold florals, bright pinks, turquoise, coral, and sunshine yellow. Let's paint the beach bar beautiful!</div>
+</div>
+
+<h2>— variant-2 (violet accent) —</h2>
+<div class="day-card variant-2">
+  <div class="day-header">
+    <span class="day-label">Day Three</span>
+    <span class="day-name">Saturday, April 25</span>
+    <span class="day-title">Your Day, Your Way</span>
+  </div>
+  <div class="day-content">
+    <p>This is YOUR vacation — <strong>vacation your way!</strong> Today is completely open for you to fill however your heart desires.</p>
+    <p><span data-highlight>Optional Excursions — Book What Speaks to You:</span></p>
+    <p><span data-event-time>Diamond Head Hike</span> — Lace up and trek to the summit of Oahu's iconic volcanic crater for sweeping panoramic views of the coastline.</p>
+    <p><span data-event-time>Surf Lessons</span> — Hang ten! First-timers and seasoned wave riders alike will love getting out on the water with a local instructor.</p>
+  </div>
+</div>
+
+<h2>— variant-4 (gold accent, finale day) —</h2>
+<div class="day-card variant-4">
+  <div class="day-header">
+    <span class="day-label">Day Five</span>
+    <span class="day-name">Monday, April 27</span>
+    <span class="day-title">Aloha &amp; Safe Travels</span>
+  </div>
+  <div class="day-content">
+    <p>All good things must come to an end — but the memories we made will last forever.</p>
+    <p>Squeeze in one last sunrise stroll, a fresh poke bowl, or a final coconut on the beach before saying <em>mahalo</em> to this beautiful island. Safe travels everyone — until the next adventure!</p>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
